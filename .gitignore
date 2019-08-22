@@ -1,0 +1,121 @@
+# ======================================================================================================================
+# OPERATING SYSTEM
+# ----------------------------------------------------------------------------------------------------------------------
+# Exclude any OS files and/or folders that might normally exist in any subfolders that you do not want included in your
+# git repository.
+# ======================================================================================================================
+.DS_Store
+
+# ======================================================================================================================
+# EDITORS
+# ----------------------------------------------------------------------------------------------------------------------
+# Exclude any IDE/Editor files and/or folders that you do not want included in your git repository.
+#
+# NOTES:
+# - I use JetBrain's PhpStorm, so I have included my preferred settings below.
+# - Feel free to include any of your own here!
+# ======================================================================================================================
+!.idea/
+.idea/*
+!.idea/dictionaries/
+!.idea/runConfigurations/
+
+# ======================================================================================================================
+# CACHE
+# ----------------------------------------------------------------------------------------------------------------------
+**/.cache/
+
+# ======================================================================================================================
+# ENVIRONMENT
+# ----------------------------------------------------------------------------------------------------------------------
+# Ignore ANY .env files throughout the entire project.
+# IMPORTANT: We do not want any sensitive information from these files commited to the repository.
+# ======================================================================================================================
+**/.env
+
+# ======================================================================================================================
+# CLIENT: ENVIRONMENT
+# ----------------------------------------------------------------------------------------------------------------------
+# See https://cli.vuejs.org/guide/mode-and-env.html#modes
+#
+# NOTES:
+# - While I, personally, would NEVER commit an .env file of any variation, I defer to the Vue developers here...
+# ======================================================================================================================
+!src/client/.env            # Loaded in all cases
+src/client/.env.local       # Loaded in all cases, ignored by git
+!src/client/.env.*          # Loaded only for specific mode (i.e. "production", "development", "test" )
+src/client/.env.*.local     # Loaded only for specific mode (i.e. "production", "development", "test" ), ignored by git
+
+# ======================================================================================================================
+# CLIENT: LOGS
+# ----------------------------------------------------------------------------------------------------------------------
+# NOTES:
+# - Exclude any log files, as these may also contain sensitive information and could be unnecessarily large.
+# ----------------------------------------------------------------------------------------------------------------------
+src/client/npm-debug.log*
+src/client/yarn-debug.log*
+src/client/yarn-error.log*
+
+# ======================================================================================================================
+# CLIENT: MODULES
+# ----------------------------------------------------------------------------------------------------------------------
+# NOTES:
+# - Exclude the "node_modules", per standard practice!
+# ----------------------------------------------------------------------------------------------------------------------
+src/client/node_modules/
+
+# ======================================================================================================================
+# CLIENT: APP
+# ----------------------------------------------------------------------------------------------------------------------
+# NOTE:
+# - By default, this folder contains the generated files for the client-side application and is completely replaced at
+# every build.
+# - If there are static files that you wish to include in the here, place them in the "src/client/public" folder and
+# they will be copied to this folder as is!
+# ======================================================================================================================
+src/public/
+src/index.html
+
+# ======================================================================================================================
+# SERVER: UCRM (RESERVED)
+# ----------------------------------------------------------------------------------------------------------------------
+src/data/config.json
+src/data/plugin.log
+src/ucrm.json
+
+# ======================================================================================================================
+# SERVER: PLUGIN
+# ----------------------------------------------------------------------------------------------------------------------
+src/data/logs/
+src/data/plugin.db
+src/server/App/Settings.php
+
+# ======================================================================================================================
+# SERVER: SUBMODULES
+# ----------------------------------------------------------------------------------------------------------------------
+# I sometimes include the "mvqn/ucrm-plugin-sdk" package as a git submodule.  This is to improve my overall development
+# experience when testing across multiple versions and platforms.
+#
+# Anyone is welcome to do the same with their own modules.  The simplified instructions are as follows:
+# 1. Include and install your package using the Composer package manager.
+# 2. Remove the entire folder created for your package (i.e. src/server/vendor/mvqn/ucrm-plugin-sdk).
+# 3. Make sure to uncomment and then append your path(s) to the section below.
+# 4. Run the following command, substituting your organzation and repository:
+#    git submodule add --name ucrm-plugin-sdk //github.com/mvqn/ucrm-plugin-sdk src/server/vendor/mvqn/ucrm-plugin-sdk
+# 5. That should be everything you need to get started!
+#
+# NOTES:
+# - The .gitignore file requires that you exclude each nested folder and then include only the one's you want.  See the
+# following as an example.
+# - If done incorrectly, you will not be able to run the submodule "add" command above without the "-f" switch and you
+# could also potentially be include some or all of the vendor folder.
+# The .gitkeep inclusions are not necessary, but I prefer to have "pretty" folders on GitHub.
+# ======================================================================================================================
+src/server/vendor/
+#!src/server/vendor/
+#src/server/vendor/*
+#!src/server/vendor/.gitkeep
+#!src/server/vendor/mvqn/
+#src/server/vendor/mvqn/*
+#!src/server/vendor/mvqn/.gitkeep
+#!src/server/vendor/mvqn/ucrm-plugin-sdk
