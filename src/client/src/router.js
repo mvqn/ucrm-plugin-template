@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import extraRoutes from "./routes";
+import routes from "./routes";
 
 Vue.use(Router);
 
@@ -11,7 +11,7 @@ const router = new Router(
 {
     routes:
     [
-        ...extraRoutes,
+        ...routes,
 
         {
             path: "/logs",
