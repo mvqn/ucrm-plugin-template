@@ -409,7 +409,13 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-@import "../../assets/css/query-builder.css";
+    .inline-loader
+    {
+        position: absolute;
+        margin-top: 0.1rem;
+        margin-left: 0.5rem;
+    }
+
 
 
 </style>
