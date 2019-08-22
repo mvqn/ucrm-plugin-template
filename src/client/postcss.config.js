@@ -1,5 +1,7 @@
 
-// noinspection JSUnusedGlobalSymbols
+
+
+// noinspection JSUnusedGlobalSymbols, JSUnusedLocalSymbols
 const purgeCss = require("@fullhuman/postcss-purgecss")({
 
     // Specify the paths/globs to all of the template files in your project.

@@ -36,7 +36,7 @@
 
 <script>
 
-    import api from "../services/api";
+    //import api from "../services/api";
 
     import PermissionGroups from "../components/PermissionBuilder/PermissionGroups";
 
@@ -93,6 +93,8 @@
         {
             console.log("Settings");
 
+            this.$api.getEnvironment()
+                .then(function(data){ console.log(data.mode) })
 
 
 

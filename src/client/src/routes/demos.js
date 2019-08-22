@@ -1,8 +1,9 @@
-
-
-
+/**
+ * An example array to be imported and mapped to your application's primary router..
+ */
 export default
 [
+    // NOTE: Include any routes for your router here...
     {
         path: "/editor",
         name: "editor",
@@ -18,4 +19,6 @@ export default
         name: "html-designer",
         component: () => import(/* webpackChunkName: "html-designer" */ "../views/HtmlDesignerDemo"),
     },
+
+    // ...
 ];

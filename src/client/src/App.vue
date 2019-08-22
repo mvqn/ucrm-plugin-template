@@ -9,7 +9,7 @@
 
 <script>
 
-    import api from "./services/api";
+    //import api from "./services/api";
 
     import Header from "./components/Header";
     import Page from "./components/Page";
@@ -23,7 +23,7 @@
         created() {
             //console.log(this.$route);
 
-            api.getEnvironment()
+            this.$api.getEnvironment()
                 .then($.proxy(function(env)
                 {
                     if(env.hasOwnProperty("mode") && env.mode === "development")

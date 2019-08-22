@@ -201,7 +201,7 @@
 
 <script>
 
-    import api from "../../services/api";
+    //import api from "../../services/api";
 
 
 
@@ -395,7 +395,7 @@
                 console.log(this.allowed);
 
                 this.updating = true;
-                api.setGroupsAllowed(this.allowed)
+                this.$api.setGroupsAllowed(this.allowed)
                     .then(
                         $.proxy(
                             function(names)
@@ -666,13 +666,13 @@
             this.availableLoading = true;
             this.allowedLoading = true;
 
-            api.getGroupsAvailable()
+            this.$api.getGroupsAvailable()
                 .then(function(names)
                 {
                     self.items = names;
                     self.availableLoading = false;
 
-                    api.getGroupsAllowed(self.available)
+                    self.$api.getGroupsAllowed(self.available)
                         .then(function(names)
                         {
                             self.moveToAllowed(names);
