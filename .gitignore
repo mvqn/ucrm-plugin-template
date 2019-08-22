@@ -19,6 +19,8 @@
 .idea/*
 !.idea/dictionaries/
 !.idea/runConfigurations/
+!.idea/deployment.xml
+!.idea/webServers.xml
 
 # ======================================================================================================================
 # CACHE
