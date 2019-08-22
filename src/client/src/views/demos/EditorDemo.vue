@@ -36,7 +36,7 @@
 
 
 
-    import Editor from "../components/AceEditor/Editor";
+    import Editor from "../../components/common/AceEditor/Editor";
 
     export default {
 

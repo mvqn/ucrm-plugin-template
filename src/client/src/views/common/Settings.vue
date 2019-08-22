@@ -38,7 +38,7 @@
 
     //import api from "../services/api";
 
-    import PermissionGroups from "../components/PermissionBuilder/PermissionGroups";
+    import PermissionGroups from "../../components/common/PermissionBuilder/PermissionGroups";
 
     export default {
 

@@ -11,8 +11,8 @@
 
     //import api from "./services/api";
 
-    import Header from "./components/Header";
-    import Page from "./components/Page";
+    import Header from "./components/common/Header";
+    import Page from "./components/common/Page";
 
     export default {
         name: "App",
