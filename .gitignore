@@ -121,3 +121,5 @@ src/server/vendor/
 #src/server/vendor/mvqn/*
 #!src/server/vendor/mvqn/.gitkeep
 #!src/server/vendor/mvqn/ucrm-plugin-sdk
+
+ucrm-plugin-template.zip
