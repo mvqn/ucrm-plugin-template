@@ -92,6 +92,7 @@
 
 <script>
 
+    import api from "../services/api";
 
 export default {
     name: "Header",
@@ -105,17 +106,17 @@ export default {
                     {
                         name: "AceEditor",
                         link: "/editor",
-                        badge: ""
+                        badge: "",
                     },
                     {
                         name: "QueryBuilder",
                         link: "/query",
-                        badge: ""
+                        badge: "",
                     },
                     {
                         name: "HtmlDesigner",
                         link: "/designer",
-                        badge: "2"
+                        badge: "2",
                     }
                 ],
                 right: [
@@ -123,21 +124,30 @@ export default {
                         name: "Logs",
                         //icon: "fa-cog",
                         link: "/logs",
-                        badge: ""
+                        badge: "",
                     },
                     {
                         name: "Settings",
                         //icon: "fa-cog",
                         link: "/settings",
-                        badge: ""
+                        badge: "",
                     }
                 ]
             }
         }
     },
+
+
     computed: {
 
     },
+
+    created: function()
+    {
+
+
+    },
+
     methods: {
         hasToolbar() {
             return (

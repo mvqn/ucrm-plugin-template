@@ -52,7 +52,7 @@ project                                 # Project Root
 │   │   │   ├── plugins                 # Client Plugins
 │   │   │   │   └── ...                 # - Include any plugins here. 
 │   │   │   ├── router                  # Client Routes
-│   │   │   │   └── ...                 # - Include your own routes here, as they will be included by "../routes.js". 
+│   │   │   │   └── ...                 # - Include your own routes here, as they will be included by "../router.js". 
 │   │   │   ├── services                # Client Services
 │   │   │   │   └── ...                 # - Include common services here.
 │   │   │   ├── store                   # Client Vuex Store
@@ -61,7 +61,7 @@ project                                 # Project Root
 │   │   │   │   └── ...                 # - This is a mix of the built-in views and your own.
 │   │   │   ├── App.vue                 # Client Root Vue Component
 │   │   │   ├── main.js                 # Client Entrypoint
-│   │   │   └── routes.js               # Client Routes
+│   │   │   └── router.js               # Client Routes
 │   │   ├── index.html                  # Client "index.html" Template (auto-injected by Webpack on build)
 │   │   └── ...                         # Client Config Files (i.e. package.json, babel.config.js, etc.) 
 │   ├── data                            # Plugin Data (include any default data files here)

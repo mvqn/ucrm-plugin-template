@@ -61,6 +61,7 @@ if (isset($_SERVER) && isset($_SERVER["REQUEST_URI"]))
 require_once __DIR__ . "/vendor/autoload.php";
 
 use App\Middleware\WebhookMiddleware;
+use Dotenv\Dotenv;
 use MVQN\Localization\Translator;
 use MVQN\Localization\Exceptions\TranslatorException;
 use MVQN\REST\RestClient;
@@ -102,16 +103,6 @@ Plugin::initialize(__DIR__ . "/../", [
 // Regenerate the Settings class, in case there are changes in the "manifest.json" file since the last script execution.
 /** @noinspection PhpUnhandledExceptionInspection */
 Plugin::createSettings("App", "Settings", __DIR__);
-
-//#endregion
-
-//#region Environment
-
-// TODO: Move this into Plugin::initialize() ???
-
-// IF an .env file exists in the project, THEN load it!
-if(file_exists(__DIR__."/../.env"))
-    (new \Dotenv\Dotenv(__DIR__."/../"))->load();
 
 //#endregion
 

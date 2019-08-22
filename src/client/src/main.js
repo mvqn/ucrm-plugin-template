@@ -1,27 +1,16 @@
 import Vue from 'vue';
 import App from './App.vue';
-import Router from "./router";
+import router from "./router";
+import store from "./store";
 
 
 Vue.config.productionTip = false;
 
-new Vue({
-    router: Router,
-    render: h => h(App),
-    mounted: function()
+new Vue(
     {
-        //let q = this.$route;
-        //console.log(this.$route);
-    },
-}).$mount('#app');
-
-
-/* eslint-disable no-new */
-/*
-new Vue({
-    el: '#app',
-    router,
-    components: { App },
-    template: '<App/>'
-});
-*/
+        router,
+        store,
+        render: h => h(App),
+    }
+)
+.$mount('#app');

@@ -8,6 +8,7 @@ use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use UCRM\Common\Log;
+use UCRM\Common\Plugin;
 
 /**
  * Class ApiController
@@ -43,6 +44,20 @@ final class ApiController
             //
             // NOTE: Include any additional common API Controllers here...
             //
+
+            $app->get("/environment",
+
+                function (Request $request, Response $response, array $args) use ($container)
+                {
+                    $data = [
+                        "mode" => Plugin::environment(),
+                        //"ucrm" => json_decode(file_get_contents(__DIR__ . "/../../../ucrm.json", true)),
+                    ];
+
+                    return $response->withJson($data);
+                }
+            );
+
 
             // Handle the root "/api[/]" functionality here...
             $app->get("[/]",

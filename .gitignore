@@ -33,15 +33,15 @@
 # Ignore ANY .env files throughout the entire project.
 # IMPORTANT: We do not want any sensitive information from these files commited to the repository.
 # ======================================================================================================================
-**/.env
+#**/.env
+!src/.env
+src/.env.local
 
 # ======================================================================================================================
 # CLIENT: ENVIRONMENT
 # ----------------------------------------------------------------------------------------------------------------------
 # See https://cli.vuejs.org/guide/mode-and-env.html#modes
 #
-# NOTES:
-# - While I, personally, would NEVER commit an .env file of any variation, I defer to the Vue developers here...
 # ======================================================================================================================
 !src/client/.env            # Loaded in all cases
 src/client/.env.local       # Loaded in all cases, ignored by git

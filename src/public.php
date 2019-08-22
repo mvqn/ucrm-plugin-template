@@ -101,7 +101,7 @@ use App\Controllers;
         use ($container)
         {
             //echo "TESTING!";
-            chdir(__DIR__."/public/");
+            //chdir(__DIR__."/public/");
 
             //return $response->withJson([ "name" => $args["name"], "description" => "This is an example JSON route!" ]);
             return $response->write(file_get_contents(__DIR__ . "/index.html"));

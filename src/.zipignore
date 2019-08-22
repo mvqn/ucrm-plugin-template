@@ -23,4 +23,4 @@ client/
 
 
 router.php
-.env
+.env.local

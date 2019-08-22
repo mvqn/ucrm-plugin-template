@@ -9,6 +9,8 @@
 
 <script>
 
+    import api from "./services/api";
+
     import Header from "./components/Header";
     import Page from "./components/Page";
 
@@ -20,6 +22,17 @@
         },
         created() {
             //console.log(this.$route);
+
+            api.getEnvironment()
+                .then($.proxy(function(env)
+                {
+                    if(env.hasOwnProperty("mode") && env.mode === "development")
+                    {
+                        console.warn("Development Mode is active!");
+                        console.log()
+                    }
+
+                }, this));
         }
     }
 
