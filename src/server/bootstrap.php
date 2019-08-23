@@ -61,12 +61,13 @@ if (isset($_SERVER) && isset($_SERVER["REQUEST_URI"]))
 require_once __DIR__ . "/vendor/autoload.php";
 
 use App\Middleware\WebhookMiddleware;
-use Dotenv\Dotenv;
 use MVQN\Localization\Translator;
 use MVQN\Localization\Exceptions\TranslatorException;
 use MVQN\REST\RestClient;
 use MVQN\Twig\Extensions\SwitchExtension;
 
+use Slim\App;
+use Slim\Views\Twig;
 use UCRM\Common\Config;
 use UCRM\Common\Log;
 use UCRM\Common\Plugin;
@@ -138,14 +139,10 @@ try
 
     Log::info("REST API Test : '".$version."'");
 }
-catch(\Exception $e)
+catch(Exception $e)
 {
     // We should have resolved all existing conditions that previously prevented successful connections!
-    /** @noinspection PhpUnhandledExceptionInspection */
     Log::error($e->getMessage());
-
-    var_dump($e->getMessage());
-    exit();
 }
 
 //#endregion
@@ -172,7 +169,7 @@ catch (TranslatorException $e)
 //#region Routing & Dependency Injection (Slim)
 
 // Create Slim Framework Application, given the provided settings.
-$app = new \Slim\App([
+$app = new App([
     "settings" => [
         "displayErrorDetails" => true,
         "addContentLengthHeader" => false,
@@ -191,7 +188,7 @@ $container = $app->getContainer();
 $container["twig"] = function (Container $container)
 {
     // Create a new instance of the Twig template renderer and configure the default options...
-    $twig = new \Slim\Views\Twig(
+    $twig = new Twig(
         [
             __DIR__ . "/App/Views/",
         ],
