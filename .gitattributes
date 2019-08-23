@@ -1,0 +1,5 @@
+
+
+
+src/client/plugins/*            merge=ours
+src/client/plugins/common/      merge=theirs
