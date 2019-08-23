@@ -5,6 +5,7 @@
 # git config --globally merge.theirs.driver true
 
 src/client/src/plugins/common/**        merge=theirs
-src/client/src/plugins/!(common)/**     merge=ours
 src/client/src/plugins/*                merge=ours
+src/client/src/plugins/!(common)/**     merge=ours
+
 
