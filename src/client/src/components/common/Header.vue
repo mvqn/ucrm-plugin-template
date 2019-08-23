@@ -98,7 +98,7 @@ export default {
     data() {
         return {
             pluginName: "Plugin Template (VueJS)",
-            githubRepo: "https://github.com/ucrm-plugins/plugin-template-vue",
+            githubRepo: "https://github.com/mvqn/ucrm-plugin-template",
             donateLink: "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YGDTYH2P6WJNN&source=url",
             nav: {
                 left: [

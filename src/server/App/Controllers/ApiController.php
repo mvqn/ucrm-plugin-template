@@ -45,6 +45,21 @@ final class ApiController
             // NOTE: Include any additional common API Controllers here...
             //
 
+            /*
+            $app->get("/environment",
+
+                function (Request $request, Response $response, array $args) use ($container)
+                {
+                    $data = [
+                        "mode" => Plugin::environment(),
+                        //"ucrm" => json_decode(file_get_contents(__DIR__ . "/../../../ucrm.json", true)),
+                    ];
+
+                    return $response->withJson($data);
+                }
+            );
+            */
+
             $app->get("/environment",
 
                 function (Request $request, Response $response, array $args) use ($container)

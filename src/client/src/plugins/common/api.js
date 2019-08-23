@@ -20,6 +20,26 @@ export default function(Vue, options)
             );
         }
 
+        static getPluginMeta()
+        {
+            return this.axios()
+                .get("public.php?/api/plugin")
+                .then(
+                    function (response)
+                    {
+                        //if(response.data.hasOwnProperty("mode"))
+                        //    return response.data.mode;
+                        return response.data;
+                    }
+                )
+                .catch(
+                    function (error)
+                    {
+                        console.log(error);
+                    }
+                );
+        }
+
         static getEnvironment()
         {
             return this.axios()
