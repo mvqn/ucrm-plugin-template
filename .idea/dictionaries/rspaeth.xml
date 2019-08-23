@@ -2,14 +2,18 @@
   <dictionary name="rspaeth">
     <words>
       <w>axios</w>
+      <w>completers</w>
       <w>compliancy</w>
+      <w>datasets</w>
       <w>droppable</w>
       <w>grapesjs</w>
       <w>mvqn</w>
       <w>navbar</w>
+      <w>pgsql</w>
       <w>spaeth</w>
       <w>tailwindcss</w>
       <w>textable</w>
+      <w>timestamptz</w>
       <w>ubiquiti</w>
       <w>ucrm</w>
       <w>unms</w>

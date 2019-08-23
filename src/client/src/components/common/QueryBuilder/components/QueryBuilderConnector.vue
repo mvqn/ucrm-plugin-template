@@ -1,3 +1,4 @@
+<!--suppress JSUnusedLocalSymbols -->
 <template>
     <div :class="'vqb-connector-' + type">
         <div class="vqb-connector-region-top">
@@ -109,10 +110,8 @@
     }
 </script>
 
+<!--suppress CssUnusedSymbol, CssFloatPxLength -->
 <style>
-
-
-
 
     .vqb-connector-straight, .vqb-connector-single, .vqb-connector-double
     {

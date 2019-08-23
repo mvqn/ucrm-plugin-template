@@ -1,3 +1,4 @@
+<!--suppress JSUnusedLocalSymbols -->
 <template>
     <div class="card mb-3">
 
@@ -11,7 +12,7 @@
                 ref="collapseButton"
                 class="collapse-button btn p-0"
                 data-toggle="collapse"
-                :data-target="'#collapse-' + _uid"
+                :data-target="'#collapse-' + this._uid"
                 aria-expanded="true"
                 @click="collapseClicked">
                 <i
@@ -25,7 +26,7 @@
 
         <div
             ref="collapse"
-            :id="'collapse-' + _uid"
+            :id="'collapse-' + this._uid"
             class="collapse in show">
 
             <div class="card-body">

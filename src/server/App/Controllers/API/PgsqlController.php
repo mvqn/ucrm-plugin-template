@@ -13,7 +13,7 @@ use Slim\Http\Response;
 
 
 /**
- * Class PsqlController
+ * Class PgsqlController
  *
  * An controller for interacting with the Plugin's log files.
  *
@@ -21,7 +21,7 @@ use Slim\Http\Response;
  * @author Ryan Spaeth <rspaeth@mvqn.net>
  * @final
  */
-final class PsqlController
+final class PgsqlController
 {
 
     /**
@@ -108,6 +108,7 @@ final class PsqlController
                     case "text":
                     case "varchar":     $type = "string";       break;
                     case "timestamp":
+                    /** @noinspection SpellCheckingInspection */
                     case "timestamptz": $type = "timestamp";    break;
                     case "json":        $type = "json";         break;
                     case "date":        $type = "date";         break;
@@ -130,7 +131,7 @@ final class PsqlController
 
 
     /**
-     * PsqlController constructor.
+     * PgsqlController constructor.
      *
      * @param App $app The Slim Application for which to configure routing.
      */
@@ -144,11 +145,11 @@ final class PsqlController
 
 
 
-        #region /psql/tables/[{table}]
+        #region /pgsql/tables/[{table}]
 
         // Handle GET queries to the file logs...
         $app->get(
-            "/psql/tables/[{table}]",
+            "/pgsql/tables/[{table}]",
 
             function (Request $request, Response $response, array $args) use ($container)
             {
@@ -162,7 +163,7 @@ final class PsqlController
 
         // Handle GET queries to the file logs...
         $app->get(
-            "/psql/tables",
+            "/pgsql/tables",
 
             function (Request $request, Response $response, array $args) use ($container)
             {
@@ -171,7 +172,7 @@ final class PsqlController
         );
 
         $app->get(
-            "/psql/schemas",
+            "/pgsql/schemas",
 
             function (Request $request, Response $response, array $args) use ($container)
             {
@@ -203,7 +204,7 @@ final class PsqlController
         );
 
         $app->post(
-            "/psql/query",
+            "/pgsql/query",
 
             function (Request $request, Response $response, array $args) use ($container)
             {
@@ -233,7 +234,7 @@ final class PsqlController
 
         // Handle GET queries to the file logs...
         $app->post(
-            "/psql/format",
+            "/pgsql/format",
 
             function (Request $request, Response $response, array $args) use ($container)
             {
@@ -249,7 +250,7 @@ final class PsqlController
 
 
         $app->get(
-            "/psql/user-groups",
+            "/pgsql/user-groups",
 
             function (Request $request, Response $response, array $args) use ($container)
             {
@@ -264,7 +265,7 @@ final class PsqlController
 
                 $results = Database::query(
                     "
-                    SELECT * FROM user_group;                
+                    SELECT * FROM ucrm.user_group;                
                     "
                 );
 

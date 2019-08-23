@@ -24,7 +24,7 @@
 
 <script>
     import QueryBuilderGroup from './components/QueryBuilderGroup.vue';
-    import { deepClone } from './utilities.js';
+    import { deepClone } from './scripts/utilities.js';
 
     import VueJsonPretty from "vue-json-pretty";
 
@@ -179,8 +179,8 @@
             },
 
             mergedRules () {
-                var mergedRules = [];
-                var vm = this;
+                let mergedRules = [];
+                let vm = this;
 
                 vm.rules.forEach(function(rule){
                     if ( typeof vm.ruleTypes[rule.type] !== "undefined" ) {
@@ -194,8 +194,24 @@
             }
         },
 
+        watch: {
+
+            query: {
+                handler: function(current, previous)
+                {
+                    if (JSON.stringify(current) !== JSON.stringify(this.value)) {
+                        this.$emit('input', deepClone(current));
+                    }
+                },
+                deep: true,
+            }
+
+
+        },
+
         mounted: function()
         {
+            /*
             this.$watch(
                 'query',
                 newQuery => {
@@ -205,6 +221,8 @@
                 }, {
                     deep: true
                 });
+
+             */
 
             this.$watch(
                 'value',

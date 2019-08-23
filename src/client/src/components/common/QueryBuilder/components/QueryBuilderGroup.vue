@@ -1,3 +1,4 @@
+<!--suppress JSUnusedLocalSymbols -->
 <template>
 
     <div
@@ -24,7 +25,7 @@
                     v-if="depth > 1"
                     class="d-flex">
                     <QueryBuilderConnector
-                        :type="index === length - 1 ? 'single' : 'double'">
+                        :type="Number(index) === Number(length) - 1 ? 'single' : 'double'">
                     </QueryBuilderConnector>
                 </div>
 
@@ -42,7 +43,7 @@
                             <!-- Match Type Label -->
                             <label
                                 v-if="labels.matchType"
-                                for="vqb-match-type" class="mr-0 mr-sm-3">
+                                class="mr-0 mr-sm-3">
                                 {{ labels.matchType }}
                             </label>
 
@@ -185,7 +186,7 @@
 
 <script>
     import QueryBuilderRule from './QueryBuilderRule.vue';
-    import { deepClone, indexMove } from '../utilities.js';
+    import { deepClone, indexMove } from '../scripts/utilities.js';
     import ButtonGroup from "../../ToggleButtonGroup/ButtonGroup";
     import QueryBuilderConnector from "./QueryBuilderConnector";
 
@@ -198,7 +199,21 @@
             QueryBuilderConnector,
         },
 
-        props: ['ruleTypes', 'type', 'query', 'rules', 'index', 'length', 'maxDepth', 'depth', 'styled', 'labels', 'table', 'columns'],
+        //props: ['ruleTypes', 'type', 'query', 'rules', 'index', 'length', 'maxDepth', 'depth', 'styled', 'labels', 'table', 'columns'],
+        props: {
+            ruleTypes: Object,
+            type: String,
+            query: Object,
+            rules: Array,
+            index: Number,
+            length: Number,
+            maxDepth: Number,
+            depth: Number,
+            styled: Boolean,
+            labels: Object,
+            table: String,
+            columns: Object,
+        },
 
         methods: {
             ruleById (ruleId) {
@@ -240,7 +255,7 @@
                     }
                 };
 
-                // A bit hacky, but `v-model` on `select` requires an array.
+                // A bit hackish, but `v-model` on `select` requires an array.
                 //if (this.ruleById(child.query.rule).type === 'multi-select') {
                 //    child.query.value = [];
                 //}
@@ -352,7 +367,7 @@
                 let sql = "";
 
 
-                if(this.depth === 1)
+                if(Number(this.depth) === 1)
                     sql +=
                         "SELECT *\n" +
                         "FROM " + this.table + "\n" +
@@ -386,12 +401,12 @@
                 //     ( <column> <operator> [<operand1>] [AND <operand2>] )
                 // );
 
-                if(this.depth === 1)
+                if(Number(this.depth) === 1)
                     sql += ");";
                 else
                     sql +=
                         " ".repeat((this.depth - 1) * 4) + ")" +
-                        (this.index !== this.length -1
+                        (Number(this.index) !== Number(this.length) - 1
                             ? "\n" + " ".repeat((this.depth - 1) * 4) + this.query.logicalOperator
                             : "\n"
                         ) + "\n";
@@ -434,10 +449,6 @@
 
 <style>
 
-    .vqb-spacer
-    {
-
-    }
 
 
 </style>

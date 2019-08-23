@@ -1,3 +1,4 @@
+<!--suppress JSUnusedLocalSymbols -->
 <template>
 
     <!-- CONTAINER -->
@@ -22,41 +23,6 @@
             class="h-100 d-none d-sm-block border border-dark"
             v-html="value">
         </div>
-
-
-        <!--
-        <form id="test-form" class="test-form" action="http://grapes.16mb.com/s" method="POST" style="display:none">
-            <div class="putsmail-c">
-                <a href="https://putsmail.com/" target="_blank">
-                    <img src="./img/putsmail.png" style="opacity:0.85;" />
-                </a>
-                <div class="gjs-sm-property" style="font-size: 10px">
-                    Test delivering offered by <a class="nl-link" href="https://litmus.com/" target="_blank">Litmus</a> with <a class="nl-link" href="https://putsmail.com/" target="_blank">Putsmail</a>
-                    <span class="form-status" style="opacity: 0">
-            <i class="fa fa-refresh anim-spin" aria-hidden="true"></i>
-          </span>
-                </div>
-            </div>
-            <div class="gjs-sm-property">
-                <div class="gjs-field">
-        	<span id="gjs-sm-input-holder">
-            <input type="email" name="email" placeholder="Email" required>
-          </span>
-                </div>
-            </div>
-
-            <div class="gjs-sm-property">
-                <div class="gjs-field">
-        	<span id="gjs-sm-input-holder">
-            <input type="text" name="subject" placeholder="Subject" required>
-          </span>
-                </div>
-            </div>
-            <input type="hidden" name="body">
-            <button class="gjs-btn-prim gjs-btn-import" style="width: 100%">SEND</button>
-        </form>
-        -->
-
 
     </div>
 
@@ -220,13 +186,6 @@
 
             //#region Options Panel
 
-            /*
-            var mdlClass = 'gjs-mdl-dialog-sm';
-            var testContainer = document.getElementById("test-form");
-            var contentEl = testContainer.querySelector('input[name=body]');
-            var md = this.editor.Modal;
-            let cmdm = this.editor.Commands;
-            */
 
             // Add the "Send Test" command...
             this.editor.Commands.add("send-test",
@@ -235,23 +194,7 @@
                 {
                     // TODO: Determine how we want to send the test...
 
-                    /*
-                    sender.set('active', 0);
-                    var modalContent = md.getContentEl();
-                    var mdlDialog = document.querySelector('.gjs-mdl-dialog');
-                    var cmdGetCode = cmdm.get('gjs-get-inlined-html');
-                    contentEl.value = cmdGetCode && cmdGetCode.run(editor);
-                    mdlDialog.className += ' ' + mdlClass;
-                    testContainer.style.display = 'block';
-                    md.setTitle('Test your Newsletter');
-                    md.setContent('');
-                    md.setContent(testContainer);
-                    md.open();
-                    md.getModel().once('change:open', function() {
-                        mdlDialog.className = mdlDialog.className.replace(mdlClass, '');
-                        //clean status
-                    })
-                    */
+
                 }
             });
 

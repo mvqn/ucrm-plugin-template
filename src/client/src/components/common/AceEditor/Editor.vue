@@ -30,6 +30,7 @@
                         class="pgsql-theme-selector"
                         v-model="localTheme"
                         :disabled="!themes">
+                        <!--suppress JSUnusedLocalSymbols -->
                         <option
                             v-for="(theme, index) in themes"
                             :value="theme.theme">
@@ -48,6 +49,7 @@
                         class="pgsql-mode-selector"
                         v-model="localMode"
                         :disabled="!modes">
+                        <!--suppress JSUnusedLocalSymbols -->
                         <option
                             v-for="(mode, index) in modes"
                             :value="mode.mode">
@@ -440,7 +442,7 @@
                 oldContent: "",
 
                 // NOTE: First we override any base component data we need to...
-                content: "SELECT * from client;",
+                content: "",
 
                 langTools: null,
                 completer: null,
@@ -710,7 +712,7 @@
 
                 // Initiate an AJAX request to GET the database schema from the back-end API...
                 self.request = $.ajax({
-                    url: "public.php?/api/psql/schemas",
+                    url: "public.php?/api/pgsql/schemas",
                     method: "GET",
 
                     // Handle successful data acquisition...
@@ -840,7 +842,7 @@
                 let self = this;
 
                 self.request = $.ajax({
-                    url: "public.php?/api/psql/tables/" + table,
+                    url: "public.php?/api/pgsql/tables/" + table,
                     method: "GET",
                     success(data) {
 
@@ -999,7 +1001,9 @@
             // noinspection SpellCheckingInspection
             this.editor.setOption("enableLiveAutocompletion", true);
 
+            // noinspection SpellCheckingInspection
             this.modes = this.sortObjectByKeys(ace.require("ace/ext/modelist").modesByName);
+            // noinspection SpellCheckingInspection
             this.themes = this.sortObjectByKeys(ace.require("ace/ext/themelist").themesByName);
 
             // Set the Editor's "mode", as optionally provided by the ":mode" prop...

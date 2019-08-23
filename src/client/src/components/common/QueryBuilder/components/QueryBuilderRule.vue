@@ -207,7 +207,7 @@
 <script>
 
     import QueryBuilderConnector from "./QueryBuilderConnector";
-    import { deepClone } from '../utilities.js';
+    import { deepClone } from '../scripts/utilities.js';
 
     export default {
         name: "QueryBuilderRule",

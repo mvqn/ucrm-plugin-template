@@ -37,7 +37,7 @@ final class ApiController
             // Include the LogsController for querying the Plugin's log files.
             new API\LogsController($app);
 
-            new API\PsqlController($app);
+            new API\PgsqlController($app);
 
             new API\PermissionsController($app);
 

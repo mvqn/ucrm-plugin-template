@@ -51,6 +51,11 @@ class WebhookMiddleware
         {
             // ...THEN get the request body JSON object as an associative array.
             $body = $request->getParsedBody();
+            //$body = $request->getBody()->getContents();
+
+            // IF NULL, either the body was empty or could not be parsed into JSON.
+            if(!$body)
+                return $next($request, $response);
 
             // IF the body contains ALL of the necessary fields...
             if (array_key_exists("uuid",        $body) &&

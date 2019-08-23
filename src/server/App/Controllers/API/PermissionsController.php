@@ -28,7 +28,7 @@ final class PermissionsController
     public const JSON_OPTS = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
 
     /**
-     * PsqlController constructor.
+     * PgsqlController constructor.
      *
      * @param App $app The Slim Application for which to configure routing.
      */
