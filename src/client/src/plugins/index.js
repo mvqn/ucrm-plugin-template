@@ -15,5 +15,3 @@ export default function(Vue, options = {})
     Vue.use(example);
     // ...
 }
-
-// TEMPLATE3!
