@@ -338,7 +338,7 @@
         },
 
         created() {
-            console.log("QueryBuilderDemo");
+            //console.log("QueryBuilderDemo");
         },
 
         mounted: function()

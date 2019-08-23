@@ -74,7 +74,7 @@
         },
 
         created() {
-            console.log("EditorDemo");
+            //console.log("EditorDemo");
         },
 
         mounted() {

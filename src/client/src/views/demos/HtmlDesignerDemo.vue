@@ -56,7 +56,7 @@
         },
 
         created() {
-            console.log("HtmlDesignerDemo");
+            //console.log("HtmlDesignerDemo");
 
             this.dynamics =
             {
