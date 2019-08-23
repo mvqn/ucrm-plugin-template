@@ -16,4 +16,4 @@ export default function(Vue, options = {})
     // ...
 }
 
-// TEMPLATE3!
+// TEMPLATE1!
