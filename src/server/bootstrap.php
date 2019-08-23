@@ -113,7 +113,7 @@ Plugin::createSettings("App", "Settings", __DIR__);
 // Generate the REST API URL from either an ENV variable (including from .env file), or fallback to localhost.
 $restUrl =
     rtrim(
-        getenv("HOST_URL") ?:                                                           // .env (or ENV variable)
+        getenv("HOST_URL") ?:                                                           // .env.local (or ENV variable)
         Settings::UCRM_LOCAL_URL ?:                                                     // ucrm.json
         (isset($_SERVER['HTTPS']) ? "https://localhost/" : "http://localhost/"),        // By initial request
     "/")."/api/v1.0";
@@ -123,7 +123,7 @@ $restUrl =
 RestClient::setBaseUrl($restUrl);
 RestClient::setHeaders([
     "Content-Type: application/json",
-    "X-Auth-App-Key: " . Settings::PLUGIN_APP_KEY
+    "X-Auth-App-Key: " . (getenv("REST_KEY") ?: Settings::PLUGIN_APP_KEY)
 ]);
 
 // Attempt to test the connection to the UCRM's REST API...
@@ -136,6 +136,7 @@ try
     $version = Version::get();
     //define("UCRM_VERSION",  $version->getVersion());
 
+
     Log::info("REST API Test : '".$version."'");
 }
 catch(\Exception $e)
@@ -143,6 +144,9 @@ catch(\Exception $e)
     // We should have resolved all existing conditions that previously prevented successful connections!
     /** @noinspection PhpUnhandledExceptionInspection */
     Log::error($e->getMessage());
+
+    var_dump($e->getMessage());
+    exit();
 }
 
 //#endregion
