@@ -14,7 +14,6 @@
             <excludedPath local="true" path="$PROJECT_DIR$/README.md" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/client" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/server/App/Settings.php" />
-            <excludedPath local="true" path="$PROJECT_DIR$/src/server/vendor/" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/.env" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/.zipignore" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/manifest.json" />
