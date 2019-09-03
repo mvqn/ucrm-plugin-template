@@ -22,7 +22,7 @@ const purgeCss = require("@fullhuman/postcss-purgecss")({
 
 });
 
-//noinspection NpmUsedModulesInstalled
+
 module.exports = {
 
     plugins: [

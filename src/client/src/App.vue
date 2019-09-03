@@ -23,13 +23,12 @@
         created() {
             //console.log(this.$route);
 
-            this.$api.getEnvironment()
-                .then($.proxy(function(env)
+            this.$api.getMode()
+                .then($.proxy(function(mode)
                 {
-                    if(env.hasOwnProperty("mode") && env.mode === "development")
+                    if(mode === "development")
                     {
                         console.warn("Development Mode is active!");
-                        console.log()
                     }
 
                 }, this));

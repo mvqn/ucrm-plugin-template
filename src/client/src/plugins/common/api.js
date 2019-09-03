@@ -40,16 +40,17 @@ export default function(Vue, options)
                 );
         }
 
-        static getEnvironment()
+        static getMode()
         {
             return this.axios()
-                .get("public.php?/api/environment")
+                .get("public.php?/api/plugin")
                 .then(
                     function (response)
                     {
-                        //if(response.data.hasOwnProperty("mode"))
-                        //    return response.data.mode;
-                        return response.data;
+                        if(response.data.hasOwnProperty("mode"))
+                            return response.data.mode;
+
+                        return "unknown!";
                     }
                 )
                 .catch(

@@ -93,8 +93,7 @@
         {
             //console.log("Settings");
 
-            this.$api.getEnvironment()
-                .then(function(data){ console.log(data.mode) })
+
 
 
 

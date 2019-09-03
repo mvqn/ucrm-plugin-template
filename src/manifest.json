@@ -24,6 +24,14 @@
             "target": "iframe"
         }
     ],
-    "configuration": []
+    "configuration": [
+        {
+            "key": "development",
+            "label": "Development Mode",
+            "description": "When enabled, additional information is provided for developers.",
+            "required": 1,
+            "type": "checkbox"
+        }
+    ]
 }
 

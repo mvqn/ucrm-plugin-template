@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use Dotenv\Dotenv;
 use Monolog\Logger;
 use Slim\App;
 use Slim\Http\Request;
@@ -45,33 +46,21 @@ final class ApiController
             // NOTE: Include any additional common API Controllers here...
             //
 
-            /*
-            $app->get("/environment",
+
+
+            $app->get("/plugin",
 
                 function (Request $request, Response $response, array $args) use ($container)
                 {
                     $data = [
-                        "mode" => Plugin::environment(),
-                        //"ucrm" => json_decode(file_get_contents(__DIR__ . "/../../../ucrm.json", true)),
+                        "mode" => Plugin::mode(),
+                        // NOTE: Add additional Plugin metadata here...
                     ];
 
                     return $response->withJson($data);
                 }
             );
-            */
 
-            $app->get("/environment",
-
-                function (Request $request, Response $response, array $args) use ($container)
-                {
-                    $data = [
-                        "mode" => Plugin::environment(),
-                        //"ucrm" => json_decode(file_get_contents(__DIR__ . "/../../../ucrm.json", true)),
-                    ];
-
-                    return $response->withJson($data);
-                }
-            );
 
 
             // Handle the root "/api[/]" functionality here...
