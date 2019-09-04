@@ -16,7 +16,7 @@ const purgeCss = require("@fullhuman/postcss-purgecss")({
     defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
 
     whitelistPatterns: [
-        // Necessary for GrapesJS Editor...
+        /* NOTE: These are necessary for the GrapesJS Editor, so keep them! */
         /gjs-/, /sp-/,
     ],
 
@@ -26,10 +26,10 @@ const purgeCss = require("@fullhuman/postcss-purgecss")({
 module.exports = {
 
     plugins: [
-        require("tailwindcss"),//("./tailwind.config.js"),
+        //require("tailwindcss")("./tailwind.config.js"),
         require("autoprefixer"),
         ...process.env.NODE_ENV === "production" ? [purgeCss] : [],
-        require("cssnano")
+        //...process.env.NODE_ENV === "production" ? [require("cssnano")] : [],
     ]
 
 };

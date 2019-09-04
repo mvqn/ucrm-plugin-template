@@ -3,9 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
-        "build:css": "postcss public/css/tailwind.css -o ../public/css/tailwind.min.css"
+        "serve": "yarn build:css && vue-cli-service serve",
+        "build": "yarn build:css && vue-cli-service build",
+        "build:css": "tailwind build tailwind.css -o src/assets/css/tailwind.css -c tailwind.config.js"
     },
     "dependencies": {
         "axios": "^0.19.0",
