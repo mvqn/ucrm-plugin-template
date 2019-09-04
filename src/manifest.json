@@ -28,8 +28,8 @@
         {
             "key": "development",
             "label": "Development Mode",
-            "description": "When enabled, additional information is provided for developers.",
-            "required": 1,
+            "description": "WARNING: This enables development mode and should only be enabled during development or when instructed to do so by the Plugin's developer.",
+            "required": 0,
             "type": "checkbox"
         }
     ]

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-
+    //import(/* webpackChunkName: "tailwind" */ "../public/css/tailwind.css");
     //import api from "./services/api";
 
     import Header from "./components/common/Header";

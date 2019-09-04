@@ -18,6 +18,8 @@
             <excludedPath local="true" path="$PROJECT_DIR$/src/.zipignore" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/manifest.json" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/ucrm.json" />
+            <excludedPath local="true" path="$PROJECT_DIR$/src/server/vendor/composer" />
+            <excludedPath local="true" path="$PROJECT_DIR$/src/server/vendor/autoload.php" />
           </excludedPaths>
         </serverdata>
       </paths>

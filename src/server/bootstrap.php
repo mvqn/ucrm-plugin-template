@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @copyright   2019 Spaeth Technologies, Inc.
  */
 
-//#region Request Manipulation
+#region Request Manipulation
 
 /* *********************************************************************************************************************
  * NOTES:
@@ -54,42 +54,36 @@ if (isset($_SERVER) && isset($_SERVER["REQUEST_URI"]))
     // OTHERWISE, we can let the front-controller handle the request directly...
 }
 
-//#endregion
+#endregion
 
-//#region Autoloader & Aliases
+#region Autoloader & Aliases
 
 require_once __DIR__ . "/vendor/autoload.php";
 
 use App\Middleware\WebhookMiddleware;
+use MVQN\HTTP\Slim\DefaultApp;
+use MVQN\HTTP\Slim\Middleware\Routing\QueryStringRouter;
+use MVQN\HTTP\Slim\Middleware\Views\TwigView;
+use MVQN\HTTP\Twig\Extensions\QueryStringRoutingExtension;
 use MVQN\Localization\Translator;
 use MVQN\Localization\Exceptions\TranslatorException;
 use MVQN\REST\RestClient;
-use MVQN\Twig\Extensions\SwitchExtension;
 
-use Slim\App;
-use Slim\Views\Twig;
 use UCRM\Common\Config;
 use UCRM\Common\Log;
 use UCRM\Common\Plugin;
-use UCRM\HTTP\Twig\Extensions\PluginExtension;
-use UCRM\HTTP\Slim\Middleware\QueryStringRouter;
-use UCRM\HTTP\Slim\Middleware\PluginAuthentication;
+use UCRM\HTTP\Slim\Middleware\Authentication\Authenticators\PluginAuthenticator;
 use UCRM\Sessions\SessionUser;
 use UCRM\REST\Endpoints\Version;
 
-use Slim\Container;
-use Slim\Router;
-use Slim\Http\Environment;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Slim\Http\Uri;
-use Slim\Views\TwigExtension;
 
 use App\Settings;
 
-//#endregion
+#endregion
 
-//#region Initialization
+#region Initialization
 
 // Initialize the Plugin SDK using this directory as the plugin root and passing along any desired options.
 /** @noinspection PhpUnhandledExceptionInspection */
@@ -105,9 +99,9 @@ Plugin::initialize(__DIR__ . "/../", [
 /** @noinspection PhpUnhandledExceptionInspection */
 Plugin::createSettings("App", "Settings", __DIR__);
 
-//#endregion
+#endregion
 
-//#region REST Client
+#region REST Client
 
 // Create the REST URL from an ENV variable (including .env[.*] files), the Plugin Settings or fallback to localhost.
 $restUrl =
@@ -145,9 +139,9 @@ catch(Exception $e)
     Log::error($e->getMessage());
 }
 
-//#endregion
+#endregion
 
-//#region Localization
+#region Localization
 
 // TODO: Move this into Plugin::initialize() ???
 
@@ -164,103 +158,79 @@ catch (TranslatorException $e)
     Log::http("No dictionary could be found!");
 }
 
-//#endregion
+#endregion
 
-//#region Routing & Dependency Injection (Slim)
+#region Application (Server)
 
-// Create Slim Framework Application, given the provided settings.
-$app = new App([
+/** @noinspection PhpUnhandledExceptionInspection */
+$app = new DefaultApp([
+
+    /* NOTE: All of the common dependencies for our needs are added by DefaultApp.
+     * ...
+     */
+
     "settings" => [
-        "displayErrorDetails" => true,
-        "addContentLengthHeader" => false,
-        "determineRouteBeforeAppMiddleware" => true,
+        // NOTE: Here we enable Slim's extra error details when in development mode.
+        "displayErrorDetails" => Plugin::mode() === Plugin::MODE_DEVELOPMENT,
     ],
+
+    // NOTE: We add the Twig instance here, as it contains values that will NOT be common to all applications!
+    "twig" =>  new TwigView(
+
+        // NOTES:
+        // - This can be either a single path to the Templates or an array of multiple paths.
+        // - These paths can be different than the ones specified using the built-in TemplateRoute.
+        __DIR__."/views/",
+
+        // NOTE: Pass any desired options to be used during the initialization of the Twig Environment.
+        [
+            "debug" => Plugin::mode() === Plugin::MODE_DEVELOPMENT
+        ],
+
+        // NOTE: Include any desired global values, which will be added to the "app.<name>" variable in Twig templates.
+        [
+            // "debug" is also automatically added from the Twig Environment above, but can be overridden here.
+            "baseUrl" => rtrim(Settings::PLUGIN_PUBLIC_URL, "/public.php"),
+            "baseScript" => "public.php",
+        ]
+    ),
+
+    /* NOTE: Add additional (or override) dependencies to the Container here...
+     * ...
+     */
 ]);
 
-// Get a reference to the DI Container included with the Slim Framework.
-$container = $app->getContainer();
-
-//#endregion
-
-//#region Templating & Rendering (Twig)
-
-// Configure the Slim/Twig Renderer...
-$container["twig"] = function (Container $container)
-{
-    // Create a new instance of the Twig template renderer and configure the default options...
-    $twig = new Twig(
-        [
-            __DIR__ . "/App/Views/",
-        ],
-        [
-            //'cache' => 'path/to/cache'
-            "debug" => true,
-        ]
-    );
-
-    // Get the current Slim Router and initialize some defaults from the Environment.
-    /** @var Router $router */
-    $router = $container->get("router");
-    $uri = Uri::createFromEnvironment(new Environment($_SERVER));
-
-    // Now add the standard TwigExtension to the specialized Slim/Twig view system.
-    $twig->addExtension(new TwigExtension($router, $uri));
-
-    // TODO: Determine if there is a replacement to this deprecated extension!
-    /** @noinspection PhpDeprecationInspection */
-    $twig->addExtension(new Twig_Extension_Debug());
-
-    // Add our custom SwitchExtension for using {% switch/case/default %} tokens in the Twig templates.
-    $twig->addExtension(new SwitchExtension());
-
-    // Add our custom PluginExtension for using some Plugin-specific globals, functions and filters.
-    $twig->addExtension(new PluginExtension(Settings::class));
-
-    // Finally, return the newly configured Slim/Twig Renderer.
-    return $twig;
-};
-
-// Override the default 404 page...
-$container['notFoundHandler'] = function (Container $container)
-{
-    return function(Request $request, Response $response) use ($container): Response
-    {
-        // Get the current Slim Router.
-        /** @var Router $router */
-        $router = $container->get("router");
-
-        // Setup some debugging information to pass along to the template...
-        $data = [
-            "vRoute" => $request->getAttribute("vRoute"),
-            "router" => $router,
-        ];
-
-        // Finally, render our custom 404 page!
-        /** @noinspection PhpUndefinedFieldInspection */
-        return $container->twig->render($response,"404.html.twig", $data);
-    };
-};
-
-//#endregion
-
-//#region Middleware (Slim)
-
-// NOTE: Middleware is handled in ascending order, starting with the last middleware added!
+// NOTE: We can add additional global values at any time, but they will be overwritten by duplicates passed above!
+QueryStringRoutingExtension::addGlobal("pluginName", Settings::PLUGIN_NAME);
 
 /***********************************************************************************************************************
  * Logging
  * ---------------------------------------------------------------------------------------------------------------------
  * Add context information here for use by the Logging system for ALL requests...
  */
-$app->add(function (Request $request, Response $response, $next) use ($app) {
-    Log::debug(
-        $request->getAttribute("vRoute"), Log::HTTP, [
-        "route" => $request->getAttribute("vRoute"),
-        "query" => $request->getAttribute("vQuery"),
-        "user"  => $request->getAttribute("sessionUser"),
-    ]);
-    return $next($request, $response);
-});
+
+$app->add(
+    function (Request $request, Response $response, $next)
+    {
+        // IF the Plugin is in development mode...
+        if(Plugin::mode() === Plugin::MODE_DEVELOPMENT)
+        {
+            // ...THEN log the HTTP request.
+            Log::debug(
+                $request->getAttribute("vRoute"),
+                Log::HTTP,
+                [
+                    "route" => $request->getAttribute("vRoute"),
+                    "query" => $request->getAttribute("vQuery"),
+                    "user" => $request->getAttribute("sessionUser"),
+                ]
+            );
+        }
+
+        // AND continue to the next middleware.
+        return $next($request, $response);
+    }
+);
 
 /***********************************************************************************************************************
  * Authentication
@@ -271,6 +241,7 @@ $app->add(function (Request $request, Response $response, $next) use ($app) {
  *
  * TODO: Add the ability to allow "Users" in addition to "Groups".
  */
+
 $allowedGroups = [ "Admin Group" ];
 
 // IF a permissions file exists...
@@ -284,15 +255,22 @@ if(file_exists(__DIR__ . "/../data/permissions.json"))
         $allowedGroups = $json["groups"];
 }
 
-// Handle Plugin-wide Authentication using our custom PluginAuthentication middleware...
-$app->add(new PluginAuthentication($container,
-    function(SessionUser $user) use ($allowedGroups)
+// NOTES:
+// - When adding the AuthenticationHandler here, the application-level authentication middleware can NOT be overridden
+//   in the individual groups and routes.
+// - Adding the AuthenticationHandler to the groups and routes is the recommended method.
+
+//$app->add(new AuthenticationHandler($app->getContainer()));
+
+// NOTES:
+// - This is the application-level authentication middleware, so any route using the AuthenticationHandler will use this
+//   Authenticator by default.
+// - Individual routes or groups can include their own Authenticator(s) that will override this one.
+$app->add(new PluginAuthenticator(
+    function(?SessionUser $user) use ($allowedGroups): bool
     {
-        // NOTES:
-        // - Apply your own logic here and return TRUE/FALSE to authenticate successfully/unsuccessfully.
-        // - The default uses any permissions configured in the front-end's "Settings" tab.
-        // - This applies to ALL routes, unless overridden in the route directly!
-        return in_array($user->getUserGroup(), $allowedGroups);
+        // Apply your own logic here and return TRUE/FALSE to authenticate successfully/unsuccessfully.
+        return ($user !== null && in_array($user->getUserGroup(), $allowedGroups));
     }
 ));
 
@@ -322,19 +300,27 @@ $app->add(new PluginAuthentication($container,
  *   > /public.php#/settings                                => Will vue-route match "/settings"
  *
  * Visit https://github.com/mvqn/ucrm-plugin-sdk for additional information on my extended UCRM SDK.
+ *
+ * NOTES:
+ * - Any routes containing "/public/" are rewritten with "/", so that the public assets can be accessed using either the
+ *   long or short form URL, where "/public/css/main.css" is the same as "/css/main.css".
+ * - The QueryStringRouter should handle "building" the route before anything else, with the possible exception of the
+ *   WebhookMiddleware only.  This is due to the fact that Webhooks are handled directly by this "public.php" script!
  */
-$app->add(new QueryStringRouter( /*"/../index.html"*/ "/"));
+
+$app->add(new QueryStringRouter("/", [ "#/public/#" => "/" ]));
 
 /***********************************************************************************************************************
  * Webhook Events
  * ---------------------------------------------------------------------------------------------------------------------
  * Handles Webhook Events, as needed!
  */
-$app->add(new WebhookMiddleware($app));
 
-//#endregion
+$app->add(new WebhookMiddleware());
 
-//#region Additional Bootstrapping
+#endregion
+
+#region Additional Bootstrapping
 
 // IF a custom bootstrap file exists, THEN include it!
 if($customPath = realpath(__DIR__ . "/bootstrap.inc.php"))
@@ -342,18 +328,21 @@ if($customPath = realpath(__DIR__ . "/bootstrap.inc.php"))
     include $customPath;
 
 // IF the UCRM version is defined...
-if(defined("UCRM_VERSION"))
+if(defined(Settings::class."::UCRM_VERSION"))
 {
+    /** @noinspection PhpUndefinedClassConstantInspection */
+    $version = Settings::UCRM_VERSION;
+
     // ...AND IF a version bootstrap file exists, THEN include it!
-    if($versionPath = realpath(__DIR__. "/bootstrap/" . UCRM_VERSION .".php"))
+    if($versionPath = realpath(__DIR__. "/bootstrap/$version.php"))
         /** @noinspection PhpIncludeInspection */
         include $versionPath;
 
     // ...AND IF a custom version bootstrap file exists, THEN include it!
-    if($customVersionPath = realpath(__DIR__. "/bootstrap/" . UCRM_VERSION .".inc.php"))
+    if($customVersionPath = realpath(__DIR__. "/bootstrap/$version.inc.php"))
         /** @noinspection PhpIncludeInspection */
         include $customVersionPath;
 }
 
-//#endregion
+#endregion
 

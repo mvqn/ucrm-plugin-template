@@ -1,15 +1,18 @@
-<?php
+<?php /** @noinspection PhpUnusedParameterInspection */
 declare(strict_types=1);
 
 require_once __DIR__ . "/server/vendor/autoload.php";
 require_once __DIR__ . "/server/bootstrap.php";
 
+use MVQN\HTTP\Slim\Middleware\Authentication\AuthenticationHandler;
+use MVQN\HTTP\Slim\Middleware\Authentication\Authenticators\FixedAuthenticator;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-use UCRM\HTTP\Slim\Controllers\Common;
+use MVQN\HTTP\Slim\Routes\AssetRoute;
+use MVQN\HTTP\Slim\Routes\TemplateRoute;
+use MVQN\HTTP\Slim\Routes\ScriptRoute;
 
-use App\Settings;
 use App\Controllers;
 
 /**
@@ -18,49 +21,24 @@ use App\Controllers;
  * @author Ryan Spaeth <rspaeth@mvqn.net>
  *
  */
-(function() use ($app, $container)
+(function() use ($app) //, $container)
 {
-    // =================================================================================================================
-    // CONFIGURATION
-    // =================================================================================================================
+    $container = $app->getContainer();
 
-    // NOTE: The following must contain valid paths if their corresponding Controllers are to function properly!
-
-    // Defines the absolute path to use when looking up static assets, including PHP scripts!
-    define("ASSET_PATH", realpath(__DIR__."/public/"));
-
-    // Defines the absolute path to use when looking up templates!
-    define("VIEWS_PATH", realpath(__DIR__."/server/App/Views/"));
-
-    // NOTE: The following define is only available in PHP scripts!
-    //define("BASE_URL", isset($_SERVER["HTTP_REFERER"]) ?
-    //    rtrim(Settings::PLUGIN_PUBLIC_URL, ".php") :    // .../public
-    //    Settings::PLUGIN_PUBLIC_URL."?");               // .../public.php?
-
-    // TODO: Add any additional configuration you need here...
-
-
-
-
-
-    // =================================================================================================================
-    // CUSTOM ROUTES
-    // =================================================================================================================
-
-    // Example routing using a Controller...
-    new Controllers\ExampleController($app);
-
-    // Custom route using an inline method...
-    // NOTE: Notice this more specific route takes precedence over the previous /example route.
+    // Define a route using a closure...
     $app->get("/example/{name}",
-
-        function ( /** @noinspection PhpUnusedParameterInspection */ Request $request, Response $response, array $args)
-            use ($container)
+        function (Request $request, Response $response, array $args)
+        use ($container)
         {
-            return $response->withJson([ "name" => $args["name"], "description" => "This is an example JSON route!" ]);
+            return $response->withJson([
+                "name" => $args["name"],
+                "description" => "This is an example JSON route!"
+            ]);
         }
+    )->add(new AuthenticationHandler($container))->add(new FixedAuthenticator(false));
 
-    );
+
+
 
     // NOTE: You can include any valid route syntax supported by the Slim Framework.  All routes and controllers placed
     // here will override any built-in controllers added below.  This is the perfect location to place API (server-side)
@@ -79,6 +57,7 @@ use App\Controllers;
     // Append a route handler for accessing the Plugin's log files.
     //new Controllers\API\LogsController($app);
     new Controllers\ApiController($app);
+    // TODO: Authentication!!!!
 
     // =================================================================================================================
     // BUILT-IN ROUTES
@@ -86,28 +65,37 @@ use App\Controllers;
     // =================================================================================================================
 
     // Append a route handler for static assets.
-    new Common\AssetController($app);
-    // NOTE: This will load static assets (i.e. png, jpg, html, pdf, etc.)
+    (new AssetRoute(
+        $app,
+        __DIR__."/public/"
+        //null // By providing NULL here, we effectively "undo" the application-level authentication middleware.
+    ));//->add(new AuthenticationHandler($container))->add(new FixedAuthenticator(false));
 
     // Append a route handler for Twig templates.
-    new Common\TemplateController($app);
+    (new TemplateRoute(
+        $app,
+        __DIR__."/server/views/"
+    ))->add(new AuthenticationHandler($container));//->add(new FixedAuthenticator(false));
 
     // Append a route handler for PHP scripts.
-    new Common\ScriptController($app);
+    (new ScriptRoute(
+        $app,
+        __DIR__."/server/src/"
+    ))->add(new AuthenticationHandler($container));
 
+
+
+    // Append a route handler for the default/root route...
     $app->get("/",
-
-        function ( /** @noinspection PhpUnusedParameterInspection */ Request $request, Response $response, array $args)
+        function (Request $request, Response $response, array $args)
         use ($container)
         {
-            //echo "TESTING!";
-            //chdir(__DIR__."/public/");
-
-            //return $response->withJson([ "name" => $args["name"], "description" => "This is an example JSON route!" ]);
-            return $response->write(file_get_contents(__DIR__ . "/index.html"));
+            // Directly output the HTML page, in our case the client entry point!
+            return $response->write(
+                file_get_contents(__DIR__ . "/index.html")
+            );
         }
-
-    );
+    )->add(new AuthenticationHandler($container)); // This simply uses the application-level authentication middleware.
 
     $app->post("/",
 

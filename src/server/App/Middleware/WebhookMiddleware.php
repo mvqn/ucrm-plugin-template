@@ -19,22 +19,6 @@ use UCRM\REST\Endpoints\WebhookEvent;
 class WebhookMiddleware
 {
     /**
-     * @var App|null The Slim Framework Application.
-     */
-    private $app = null;
-
-    /**
-     * Middleware Constructor.
-     *
-     * @param App $app The Slim Framework Application to which this Middleware belongs.
-     */
-    public function __construct(App $app)
-    {
-        // Assign local variables to instance properties, as needed...
-        $this->app = $app;
-    }
-
-    /**
      * Middleware Invocation method.
      *
      * @param Request $request      The current Request object.
