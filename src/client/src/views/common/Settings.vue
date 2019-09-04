@@ -10,23 +10,6 @@
         <button class="btn btn-primary" @click="items = items2">Change</button>
         -->
 
-
-        <div class="max-w-sm rounded overflow-hidden shadow-lg">
-            <img class="w-full" src="../../assets/img/card-top.jpg" alt="Sunset in the mountains">
-            <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-                <p class="text-gray-700 text-base">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                </p>
-            </div>
-            <div class="px-6 py-4">
-                <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
-                <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
-                <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
-            </div>
-        </div>
-
-
         <!--
         <div class="md:flex bg-blue-500">
             <div class="md:flex-shrink-0">
@@ -35,7 +18,7 @@
             <div class="mt-4 md:mt-0 md:ml-6">
                 <div class="uppercase tracking-wide text-sm text-indigo-600 font-bold">Marketing</div>
                 <a href="#" class="block mt-1 text-lg leading-tight font-semibold text-gray-900 hover:underline">Finding customers for your new business</a>
-                <p class="mt-2 text-gray-600">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
+                <p class="mt-2 text-gray-200">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
             </div>
         </div>
         -->
@@ -118,7 +101,8 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
-    @import "../../assets/css/tailwind.css";
+
+    //@import "../../assets/css/tailwind.min.css";
 
 
     .list-group-item

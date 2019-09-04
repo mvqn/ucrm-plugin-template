@@ -805,7 +805,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
 
-    //@import "../../assets/css/tailwind.css";
+    //@import "../../assets/css/tailwind.min.css";
 
     #logs-content {
         overflow-y: auto;
