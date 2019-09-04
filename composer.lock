@@ -858,16 +858,16 @@
         },
         {
             "name": "mvqn/ucrm-plugin-sdk",
-            "version": "1.4.5",
+            "version": "1.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mvqn/ucrm-plugin-sdk.git",
-                "reference": "10d5806543a8ce41b0581e1257d8ef67461b539a"
+                "reference": "27b3ba4714082be9fd3a57ead48c68938b49743d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mvqn/ucrm-plugin-sdk/zipball/10d5806543a8ce41b0581e1257d8ef67461b539a",
-                "reference": "10d5806543a8ce41b0581e1257d8ef67461b539a",
+                "url": "https://api.github.com/repos/mvqn/ucrm-plugin-sdk/zipball/27b3ba4714082be9fd3a57ead48c68938b49743d",
+                "reference": "27b3ba4714082be9fd3a57ead48c68938b49743d",
                 "shasum": ""
             },
             "require": {
@@ -915,7 +915,7 @@
                 }
             ],
             "description": "An alternative UCRM SDK designed to ease Plugin development.",
-            "time": "2019-09-04T06:08:55+00:00"
+            "time": "2019-09-04T06:54:37+00:00"
         },
         {
             "name": "myclabs/deep-copy",

@@ -126,16 +126,19 @@ RestClient::setHeaders([
 try
 {
     // Get the Version from the REST API and log the information to the Plugin's logs.
-    Log::info("Using REST URL:\n    '".$restUrl."'");
+    if(Plugin::mode() === Plugin::MODE_DEVELOPMENT)
+        Log::info("Using REST URL:\n    '".$restUrl."'");
 
     /** @var Version $version */
     $version = Version::get();
 
-    Log::info("REST API Test : '".$version."'");
+    if(Plugin::mode() === Plugin::MODE_DEVELOPMENT)
+        Log::info("REST API Test : '".$version."'");
 }
 catch(Exception $e)
 {
     // We should have resolved all existing conditions that previously prevented successful connections!
+    //if(Plugin::mode() === Plugin::MODE_DEVELOPMENT)
     Log::error($e->getMessage());
 }
 
@@ -215,7 +218,7 @@ $app->add(
         // IF the Plugin is in development mode...
         if(Plugin::mode() === Plugin::MODE_DEVELOPMENT)
         {
-            // ...THEN log the HTTP request.
+            // ...THEN log ALL HTTP requests.
             Log::debug(
                 $request->getAttribute("vRoute"),
                 Log::HTTP,

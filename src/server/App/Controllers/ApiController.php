@@ -109,10 +109,24 @@ final class ApiController
                 }
             );
 
-        })->add(function (Request $request, Response $response, $next) use ($app) {
-            Log::debug($request->getUri()->getPath(), Log::REST);
-            return $next($request, $response);
-        });
+        })->add(
+            function (Request $request, Response $response, $next)
+            use ($app)
+            {
+                if(Plugin::mode() === Plugin::MODE_DEVELOPMENT)
+                {
+                    $path = $request->getUri()
+                        ->getPath();
+                    $query = $request->getUri()
+                        ->getQuery();
+
+                    $message = $path.($query !== "" ? "?$query" : "");
+                    Log::debug($message, Log::REST);
+                }
+
+                return $next($request, $response);
+            }
+        );
 
     }
 

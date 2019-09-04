@@ -7,6 +7,7 @@ use Exception;
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use UCRM\Common\Log;
 use UCRM\REST\Endpoints\WebhookEvent;
 
 /**
@@ -36,6 +37,17 @@ class WebhookMiddleware
             // ...THEN get the request body JSON object as an associative array.
             $body = $request->getParsedBody();
             //$body = $request->getBody()->getContents();
+
+            Log::debug(
+                "Webhook Event",
+                Log::HTTP,
+                [
+                    //"route" => $request->getAttribute("vRoute"),
+                    //"query" => $request->getAttribute("vQuery"),
+                    //"user" => $request->getAttribute("sessionUser"),
+                    "body" => $body,
+                ]
+            );
 
             // IF NULL, either the body was empty or could not be parsed into JSON.
             if(!$body)
