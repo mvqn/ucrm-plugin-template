@@ -174,7 +174,8 @@ $app = new DefaultApp([
 
     "settings" => [
         // NOTE: Here we enable Slim's extra error details when in development mode.
-        "displayErrorDetails" => Plugin::mode() === Plugin::MODE_DEVELOPMENT,
+        //"displayErrorDetails" => Plugin::mode() === Plugin::MODE_DEVELOPMENT,
+        "displayErrorDetails" => true,
     ],
 
     // NOTE: We add the Twig instance here, as it contains values that will NOT be common to all applications!
@@ -272,6 +273,9 @@ if(file_exists(__DIR__ . "/../data/permissions.json"))
 $app->add(new PluginAuthenticator(
     function(?SessionUser $user) use ($allowedGroups): bool
     {
+        //var_dump($user, $allowedGroups);
+        //exit();
+
         // Apply your own logic here and return TRUE/FALSE to authenticate successfully/unsuccessfully.
         return ($user !== null && in_array($user->getUserGroup(), $allowedGroups));
     }
@@ -348,4 +352,6 @@ if(defined(Settings::class."::UCRM_VERSION"))
 }
 
 #endregion
+
+
 

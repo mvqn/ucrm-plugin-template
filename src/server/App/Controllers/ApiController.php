@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use Dotenv\Dotenv;
 use Monolog\Logger;
+use MVQN\HTTP\Slim\Routes\BuiltInRoute;
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -20,7 +21,7 @@ use UCRM\Common\Plugin;
  * @author Ryan Spaeth <rspaeth@mvqn.net>
  * @final
  */
-final class ApiController
+final class ApiController extends BuiltInRoute
 {
     /**
      * ApiController constructor.
@@ -30,7 +31,7 @@ final class ApiController
     public function __construct(App $app)
     {
 
-        $app->group("/api", function() use ($app) {
+        $this->route = $app->group("/api", function() use ($app) {
 
             // Get a local reference to the Slim Application's DI Container.
             $container = $app->getContainer();

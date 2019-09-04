@@ -56,7 +56,7 @@ use App\Controllers;
 
     // Append a route handler for accessing the Plugin's log files.
     //new Controllers\API\LogsController($app);
-    new Controllers\ApiController($app);
+    (new Controllers\ApiController($app))->add(new AuthenticationHandler($container));
     // TODO: Authentication!!!!
 
     // =================================================================================================================
