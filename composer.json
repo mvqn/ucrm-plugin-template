@@ -31,7 +31,8 @@
 
     },
     "require-dev": {
-        "composer/composer":  "^1.9"
+        "composer/composer":  "^1.9",
+        "consolidation/robo": "^1.4"
     },
     "autoload": {
         "psr-4": {
@@ -44,6 +45,10 @@
     },
     "scripts": {
 
+
+        "test": [
+            "robo test"
+        ],
 
 
         "sync": [

@@ -5,7 +5,7 @@
       <paths name="unms.mvqn.net">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/unms/data/ucrm/ucrm/data/plugins/ucrm-plugin-template\" local="$PROJECT_DIR$/src/" web="/_plugins/ucrm-plugin-template/" />
+            <mapping deploy="/home/unms/data/ucrm/ucrm/data/plugins/ucrm-plugin-template/" local="$PROJECT_DIR$/src/" web="/_plugins/ucrm-plugin-template/" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/.idea" />
@@ -14,7 +14,7 @@
             <excludedPath local="true" path="$PROJECT_DIR$/README.md" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/client" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/server/App/Settings.php" />
-            <excludedPath local="true" path="$PROJECT_DIR$/src/.env" />
+            <excludedPath local="true" path="$PROJECT_DIR$/src/.env.local" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/.zipignore" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/manifest.json" />
             <excludedPath local="true" path="$PROJECT_DIR$/src/ucrm.json" />

@@ -118,7 +118,7 @@ RestClient::setBaseUrl($restUrl);
 RestClient::setHeaders([
     // All returned values are currently in the "application/json" format.
     "Content-Type: application/json",
-    // Set the App Key from an ENV variable (including .env[.*] files) or from the Plugin Settings.
+    // Set the App Key from an ENV variable (including any .env[.*] files) or from the Plugin Settings.
     "X-Auth-App-Key: " . (getenv("REST_KEY") ?: Settings::PLUGIN_APP_KEY)
 ]);
 
