@@ -15,12 +15,13 @@
 # - I use JetBrain's PhpStorm, so I have included my preferred settings below.
 # - Feel free to include any of your own here!
 # ======================================================================================================================
-!.idea/
-.idea/*
-!.idea/dictionaries/
-!.idea/runConfigurations/
-!.idea/deployment.xml
-!.idea/webServers.xml
+.idea/
+#!.idea/
+#.idea/*
+#!.idea/dictionaries/
+#!.idea/runConfigurations/
+#!.idea/deployment.xml
+#!.idea/webServers.xml
 
 # ======================================================================================================================
 # CACHE
@@ -33,9 +34,10 @@
 # Ignore ANY .env files throughout the entire project.
 # IMPORTANT: We do not want any sensitive information from these files commited to the repository.
 # ======================================================================================================================
-#**/.env
-!src/.env
-src/.env.local
+**/.env
+**/.env.*
+#!src/.env
+#src/.env.local
 
 # ======================================================================================================================
 # CLIENT: ENVIRONMENT
@@ -131,3 +133,4 @@ src/server/vendor/
 #!src/server/vendor/mvqn/ucrm-plugin-sdk
 
 ucrm-plugin-template.zip
+sftp.config.json
