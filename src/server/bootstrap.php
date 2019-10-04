@@ -99,6 +99,25 @@ Plugin::initialize(__DIR__ . "/../", [
 /** @noinspection PhpUnhandledExceptionInspection */
 Plugin::createSettings("App", "Settings", __DIR__);
 
+//echo \UCRM\Common\Mailer::getType()."\n";
+//echo \UCRM\Common\Mailer::getGmailPassword()."\n";
+
+/*
+$mailer = \UCRM\Common\Mailer::getMailer();
+
+$message = (new Swift_Message("Test Message"))
+    ->setFrom([ "unms@mvqn.net" => "UNMS System" ])
+    ->setTo([ "rspaeth@mvqn.net" => "Ryan Spaeth" ])
+    ->setBody("<h2>This is a test!</h2>", "text/html");
+
+//$mailer->send($message);
+*/
+
+//echo "<pre>";
+//var_dump($_ENV);
+//echo "</pre>";
+
+
 #endregion
 
 #region REST Client

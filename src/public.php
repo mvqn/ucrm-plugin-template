@@ -68,7 +68,7 @@ use App\Controllers;
     (new AssetRoute(
         $app,
         __DIR__."/public/"
-        //null // By providing NULL here, we effectively "undo" the application-level authentication middleware.
+    //null // By providing NULL here, we effectively "undo" the application-level authentication middleware.
     ));//->add(new AuthenticationHandler($container))->add(new FixedAuthenticator(false));
 
     // Append a route handler for Twig templates.

@@ -12,7 +12,15 @@ class Script
      */
     public static function example(Event $event)
     {
+        $args = $event->getArguments();
+
         $event->getIO()->write("Do something useful!");
+
+        foreach($args as $arg)
+        {
+            $event->getIO()->write($arg);
+        }
+
     }
 
 }

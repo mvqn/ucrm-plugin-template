@@ -9,30 +9,33 @@
         }
     ],
     "require": {
-        "php": "~7.2",
+        "php": "~7.3",
+
         "ext-json": "*",
-        "ext-zip": "*",
         "ext-pdo": "*",
 
+        "mvqn/http": "^1.0",
         "mvqn/localization": "1.*",
         "mvqn/twig": "1.*",
+        "mvqn/ucrm-plugin-sdk": "^1.3",
 
         "slim/slim": "^3.1",
         "slim/twig-view": "^2.0",
+
         "monolog/monolog": "^1.24",
-
-        "phpunit/phpunit": "~8",
         "vlucas/phpdotenv": "2.5.*",
-
         "commerceguys/intl": "^1.0",
-        "mvqn/ucrm-plugin-sdk": "^1.3",
-        "mvqn/http": "^1.0"
-
+        "swiftmailer/swiftmailer": "^6.2"
 
     },
     "require-dev": {
+        "ext-zip": "*",
+
         "composer/composer":  "^1.9",
-        "consolidation/robo": "^1.4"
+        "consolidation/robo": "^1.4",
+        "mvqn/robo-tasks": "^1.0",
+        "phpunit/phpunit": "~8"
+
     },
     "autoload": {
         "psr-4": {
@@ -44,21 +47,16 @@
         }
     },
     "scripts": {
-
-
-        "test": [
-            "robo test"
+        "example": [
+            "App\\Composer\\Project::configureSFTP"
         ],
 
+        "post-create-project-cmd": [
 
-        "sync": [
-            "upm sync"
         ],
-        "create": [
-            "upm create"
-        ],
+
         "bundle": [
-            "@composer client:build",
+            "@composer client:deploy",
             "@composer server:build",
             "upm bundle"
         ],
