@@ -11,7 +11,7 @@
         "tailwind:del": "del /F src\\assets\\css\\tailwind.css"
     },
     "dependencies": {
-        "axios": "^0.19.0",
+        "axios": "^0.21.1",
         "core-js": "^2.6.5",
         "css": "^2.2.4",
         "grapesjs": "^0.15.3",
